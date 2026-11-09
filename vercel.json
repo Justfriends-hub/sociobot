@@ -3,7 +3,7 @@
   "functions": {
     "api/webhook.py": {
       "maxDuration": 30,
-      "includeFiles": ["bot.py", "config.py"]
+      "includeFiles": "{bot.py,config.py}"
     }
   }
 }
