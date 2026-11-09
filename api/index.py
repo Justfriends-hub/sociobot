@@ -58,7 +58,10 @@ def app(environ, start_response):
     method = environ.get("REQUEST_METHOD", "GET").upper()
 
     if method != "POST":
-        status, headers, body = _respond("200 OK", "Sociobot webhook is alive.")
+        token_state = "set" if os.getenv("BOT_TOKEN", "").strip() else "MISSING"
+        status, headers, body = _respond(
+            "200 OK", f"Sociobot webhook is alive. bot_token={token_state}"
+        )
         start_response(status, headers)
         return [body]
 
