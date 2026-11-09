@@ -52,9 +52,9 @@ def build_keyboard() -> InlineKeyboardMarkup | None:
     return InlineKeyboardMarkup(rows)
 
 
-def send_links(update: Update, text: str) -> None:
+async def send_links(update: Update, text: str) -> None:
     """Send a text message together with the social buttons."""
-    update.effective_message.reply_text(
+    await update.effective_message.reply_text(
         text,
         reply_markup=build_keyboard(),
         parse_mode=ParseMode.HTML,
@@ -68,15 +68,15 @@ def send_links(update: Update, text: str) -> None:
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     name = (user.first_name if user else None) or "there"
-    send_links(update, config.WELCOME_TEXT.format(name=name))
+    await send_links(update, config.WELCOME_TEXT.format(name=name))
 
 
 async def links(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    send_links(update, config.LINKS_TEXT)
+    await send_links(update, config.LINKS_TEXT)
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    send_links(
+    await send_links(
         update,
         "ℹ️ <b>How this works</b>\n\n"
         "Tap any button to open that social media profile. It opens in "
@@ -89,7 +89,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 
 async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    send_links(update, "I didn't understand that. Here are all my links 👇")
+    await send_links(update, "I didn't understand that. Here are all my links 👇")
 
 
 async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
