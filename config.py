@@ -6,27 +6,31 @@ After changing anything, restart the bot (Ctrl+C, then run it again).
 """
 
 # ---------------------------------------------------------------------------
-# 1. YOUR SOCIAL PROFILES
+# 1. THE SOCIAL APPS
 # ---------------------------------------------------------------------------
-# Format:  ("emoji", "Button name", "https://your-profile-link")
+# Format:  ("emoji", "Button name", "https://link")
 #
+# These point at each app's own site, so tapping opens that app's page and
+# offers "Open in app" to go straight into the installed app.
+# To point at YOUR profile instead, use e.g. https://www.instagram.com/yourname
 # Leave the URL as "" (two quote marks, nothing inside) to hide that button.
 # Only http:// and https:// links are allowed by Telegram.
 # Tip: use "https://" for every link so it works on Android and iPhone.
 
 SOCIAL_LINKS = [
-    ("🎵", "TikTok",    "https://www.tiktok.com/@yourname"),
-    ("📸", "Instagram", "https://www.instagram.com/yourname"),
-    ("📘", "Facebook",  "https://www.facebook.com/yourname"),
-    ("🐦", "X / Twitter", "https://x.com/yourname"),
-    ("▶️", "YouTube",   "https://www.youtube.com/@yourname"),
-    ("💬", "WhatsApp",  "https://wa.me/2340000000000"),
-    ("👻", "Snapchat",  "https://www.snapchat.com/add/yourname"),
-    ("💼", "LinkedIn",  "https://www.linkedin.com/in/yourname"),
-    ("🧵", "Threads",   "https://www.threads.net/@yourname"),
-    ("🎮", "Discord",   ""),
-    ("📌", "Pinterest", ""),
-    ("🤖", "Telegram Channel", ""),
+    ("🎵", "TikTok",    "https://www.tiktok.com"),
+    ("📸", "Instagram", "https://www.instagram.com"),
+    ("📘", "Facebook",  "https://www.facebook.com"),
+    ("🐦", "X / Twitter", "https://x.com"),
+    ("▶️", "YouTube",   "https://www.youtube.com"),
+    ("💬", "WhatsApp",  "https://www.whatsapp.com"),
+    ("👻", "Snapchat",  "https://www.snapchat.com"),
+    ("💼", "LinkedIn",  "https://www.linkedin.com"),
+    ("🧵", "Threads",   "https://www.threads.net"),
+    ("🎮", "Discord",   "https://discord.com"),
+    ("📌", "Pinterest", "https://www.pinterest.com"),
+    ("👽", "Reddit",    "https://www.reddit.com"),
+    ("✈️", "Telegram",  "https://telegram.org"),
 ]
 
 # How many buttons per row (2 looks best on phones).

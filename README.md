@@ -38,7 +38,8 @@ BOT_TOKEN=123456789:AAH-your-real-token-here
 > Never share this token or commit it anywhere. It is the password to your bot.
 
 ### 3. Add your links
-Open **`config.py`** and replace the `@yourname` links with your real ones:
+Open **`config.py`**. It already points at each app's own site (TikTok,
+Instagram, Facebook, X, …). To point at **your** profile instead, swap the URL:
 
 ```python
 SOCIAL_LINKS = [
