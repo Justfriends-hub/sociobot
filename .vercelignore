@@ -1,0 +1,12 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+run.bat
+set_webhook.py
+Dockerfile
+.dockerignore
+render.yaml
+Procfile
+README.md

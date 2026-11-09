@@ -1,0 +1,15 @@
+# Render blueprint — free web service in webhook mode.
+# 1. Push this folder to GitHub.
+# 2. render.com -> New -> Blueprint -> pick the repo.
+# 3. When asked, paste BOT_TOKEN and WEBHOOK_URL
+#    (WEBHOOK_URL = https://<your-service-name>.onrender.com).
+services:
+  - type: web
+    name: sociobot
+    runtime: docker
+    plan: free
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: WEBHOOK_URL
+        sync: false
