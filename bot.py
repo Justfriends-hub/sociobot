@@ -59,8 +59,14 @@ def build_keyboard() -> ReplyKeyboardMarkup | None:
 
     per_row = max(1, config.BUTTONS_PER_ROW)
     rows = [buttons[i : i + per_row] for i in range(0, len(buttons), per_row)]
-    # Home button on its own row: brings the user back to the welcome screen.
-    rows.append([KeyboardButton(text="🏠 Home")])
+
+    # Home opens the Mini App hub when a hub URL is configured.
+    mini_url = str(getattr(config, "MINIAPP_URL", "") or "").strip()
+    if mini_url:
+        home_button = KeyboardButton(text="🏠 Home", web_app=WebAppInfo(url=mini_url))
+    else:
+        home_button = KeyboardButton(text="🏠 Home")
+    rows.append([home_button])
     return ReplyKeyboardMarkup(
         rows,
         resize_keyboard=True,

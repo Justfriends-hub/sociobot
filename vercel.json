@@ -3,7 +3,7 @@
   "functions": {
     "api/index.py": {
       "maxDuration": 30,
-      "includeFiles": "{bot.py,config.py}"
+      "includeFiles": "{bot.py,config.py,mini_app.py}"
     }
   }
 }

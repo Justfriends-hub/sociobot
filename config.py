@@ -58,3 +58,10 @@ LINKS_TEXT = "🔗 <b>All the apps</b>\n\nPick one on the keyboard below 👇"
 # ---------------------------------------------------------------------------
 # Your bot token is read from the .env file, NOT from here (safer).
 # Set it in .env like this:  BOT_TOKEN=123456:ABC-your-token
+
+# The 🏠 Home button opens this Mini App hub.
+MINIAPP_URL = "https://sociobots.vercel.app/mini"
+
+# Optional: your WhatsApp number with country code, digits only (e.g. 2348012345678).
+# On phones the hub opens a direct chat with you instead of WhatsApp Web.
+WHATSAPP_NUMBER = ""

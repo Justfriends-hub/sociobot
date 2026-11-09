@@ -89,15 +89,36 @@ app links like `instagram://` are blocked by Telegram, so always use `https://`.
 
 **WhatsApp uses WhatsApp Web** (`https://web.whatsapp.com`): it shows the QR
 code inside the Mini App. Scan it once from your phone (WhatsApp → Linked
-devices) and you can chat right there in Telegram. Use `https://wa.me/<number>`
-instead if you'd rather open a direct chat with one number.
+devices) and you can chat right there in Telegram.
 
-**🏠 Home** is a normal keyboard button (not a Mini App): tapping it sends
-"Home" and the bot replies with the welcome screen and keyboard again.
+> **Phone limitation:** WhatsApp serves WhatsApp Web only to desktop browsers.
+> On Telegram Desktop it works; on phones WhatsApp detects the mobile webview
+> and redirects to its app. No bot can change that — see `WHATSAPP_NUMBER` in
+> `config.py` to make the hub open a direct chat on phones instead.
 
-**Editing links:** change `config.py`, then restart the bot (Ctrl+C in the
-black window, then `run.bat` again). Users get the new buttons the next time
-they press `/start`.
+**🏠 Home opens the Mini App hub** (`config.MINIAPP_URL`): a themed page with
+every app, search, and pinned favourites. It stays inside Telegram.
+
+**Editing links:** change `config.py`, then push to GitHub (or restart the bot
+if running locally). Users get the new buttons the next time they press
+`/start`.
+
+---
+
+## The Mini App hub
+
+`mini_app.py` serves the page at `/mini`. It is generated from
+`config.SOCIAL_LINKS`, so the hub and the keyboard always match.
+
+* **Search** — filters the tiles as you type.
+* **Pin (★)** — keeps favourites at the top, saved per device.
+* **Theme** — follows Telegram's light/dark colours automatically.
+* **Opens apps in place** — tapping a tile navigates inside the Mini App
+  webview (iframes are not used because most social sites block them).
+
+Set `WHATSAPP_NUMBER` in `config.py` (digits only, with country code) and the
+WhatsApp tile opens a direct chat on phones, while still opening WhatsApp Web
+on desktop.
 
 ---
 
@@ -109,6 +130,7 @@ they press `/start`.
 | `.env`           | Your secret bot token (never share)            |
 | `bot.py`         | The bot code — no need to touch it             |
 | `api/index.py`   | Vercel entry point (used only on Vercel)       |
+| `mini_app.py`    | The Mini App hub page (search, pins, themes)   |
 | `pyproject.toml` | Vercel entrypoint + dependency list            |
 | `set_webhook.py` | Connects Telegram to Vercel — run once         |
 | `vercel.json`    | Vercel deployment settings                     |

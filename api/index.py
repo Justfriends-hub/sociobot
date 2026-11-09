@@ -91,6 +91,22 @@ def _respond(status: str, text: str):
 
 def app(environ, start_response):
     method = environ.get("REQUEST_METHOD", "GET").upper()
+    path = environ.get("PATH_INFO", "/").rstrip("/") or "/"
+
+    # The Mini App hub (opened by the 🏠 Home button).
+    if method != "POST" and path in ("/mini", "/app"):
+        from mini_app import render_html
+
+        body = render_html().encode("utf-8")
+        start_response(
+            "200 OK",
+            [
+                ("Content-Type", "text/html; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+                ("Cache-Control", "no-store"),
+            ],
+        )
+        return [body]
 
     if method != "POST":
         query = environ.get("QUERY_STRING", "")
