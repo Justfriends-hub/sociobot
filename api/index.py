@@ -22,6 +22,14 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
 import bot as bot_module
 
+# Filled by the error handler during a request so the WSGI layer can report it.
+_handler_errors: list[str] = []
+
+
+async def _collect_error(update, context) -> None:
+    _handler_errors.append(type(context.error).__name__)
+    bot_module.logger.error("Handler error: %s", context.error)
+
 
 def build_app() -> Application:
     """Same handlers as bot.py, without the polling loop."""
@@ -30,7 +38,7 @@ def build_app() -> Application:
     app.add_handler(CommandHandler("links", bot_module.links))
     app.add_handler(CommandHandler("help", bot_module.help_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, bot_module.unknown))
-    app.add_error_handler(bot_module.on_error)
+    app.add_error_handler(_collect_error)
     return app
 
 
@@ -50,6 +58,7 @@ def run_async(coro):
 async def handle_update(data: dict) -> None:
     if not data.get("update_id"):
         return
+    del _handler_errors[:]
     app = build_app()
     await app.initialize()
     try:
@@ -58,6 +67,9 @@ async def handle_update(data: dict) -> None:
             await app.process_update(update)
     finally:
         await app.shutdown()
+
+    if _handler_errors:
+        raise RuntimeError(_handler_errors[0])
 
 
 async def _selftest() -> str:
