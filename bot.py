@@ -10,7 +10,13 @@ import logging
 import os
 
 from dotenv import load_dotenv
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, LinkPreviewOptions, Update
+from telegram import (
+    KeyboardButton,
+    LinkPreviewOptions,
+    ReplyKeyboardMarkup,
+    Update,
+    WebAppInfo,
+)
 from telegram.constants import ParseMode
 from telegram.error import InvalidToken
 from telegram.ext import (
@@ -35,10 +41,14 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Keyboard
 # ---------------------------------------------------------------------------
-def build_keyboard() -> InlineKeyboardMarkup | None:
-    """Turn the links in config.py into a grid of buttons."""
+def build_keyboard() -> ReplyKeyboardMarkup | None:
+    """Turn the links in config.py into Mini App buttons on the bottom keyboard.
+
+    Each button is a web_app button, so tapping it opens the site inside
+    Telegram as a Mini App instead of the external browser.
+    """
     buttons = [
-        InlineKeyboardButton(text=f"{emoji} {label}", url=url.strip())
+        KeyboardButton(text=f"{emoji} {label}", web_app=WebAppInfo(url=url.strip()))
         for emoji, label, url in config.SOCIAL_LINKS
         if url and url.strip()
     ]
@@ -49,7 +59,12 @@ def build_keyboard() -> InlineKeyboardMarkup | None:
 
     per_row = max(1, config.BUTTONS_PER_ROW)
     rows = [buttons[i : i + per_row] for i in range(0, len(buttons), per_row)]
-    return InlineKeyboardMarkup(rows)
+    return ReplyKeyboardMarkup(
+        rows,
+        resize_keyboard=True,
+        is_persistent=True,
+        input_field_placeholder="Choose a platform",
+    )
 
 
 async def send_links(update: Update, text: str) -> None:
@@ -79,17 +94,17 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     await send_links(
         update,
         "ℹ️ <b>How this works</b>\n\n"
-        "Tap any button to open that social media profile. It opens in "
-        "Telegram's own browser, so you never leave the chat.\n\n"
+        "The apps are on the keyboard at the bottom of the chat. Tap one "
+        "and it opens inside Telegram as a Mini App — you never leave.\n\n"
         "Commands:\n"
         "/start — welcome message\n"
-        "/links — show all my links\n"
+        "/links — show the keyboard\n"
         "/help — this message",
     )
 
 
 async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await send_links(update, "I didn't understand that. Here are all my links 👇")
+    await send_links(update, "Here are all the apps 👇 tap one on the keyboard.")
 
 
 async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:

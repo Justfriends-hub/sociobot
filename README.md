@@ -1,16 +1,18 @@
 # Sociobot 🔗
 
-A Telegram bot that works like a mini link-in-bio page. Users tap a button
-(TikTok, Instagram, Facebook, X, etc.) and the profile opens **inside
-Telegram's built-in browser**, so they never leave the app.
+A Telegram bot with a bottom keyboard full of social apps. Tap one and it
+opens **inside Telegram as a Mini App** — no external browser, no leaving the
+chat.
 
 ```
 👋 Hey Ada!
 
-Welcome to my page. Tap any button below to open one of my
-social media profiles — it opens right here inside Telegram.
+Tap any social app on the keyboard below — it opens right here
+inside Telegram as a Mini App.
 
 👇 Pick a platform
+
+Keyboard at the bottom of the chat:
 
 [ 🎵 TikTok ]      [ 📸 Instagram ]
 [ 📘 Facebook ]    [ 🐦 X / Twitter ]

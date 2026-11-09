@@ -45,13 +45,13 @@ BUTTONS_PER_ROW = 2
 
 WELCOME_TEXT = (
     "👋 Hey {name}!\n\n"
-    "Welcome to my page. Tap any button below to open one of my "
-    "social media profiles — it opens right here inside Telegram.\n\n"
+    "Tap any social app on the keyboard below — it opens right here "
+    "inside Telegram as a Mini App.\n\n"
     "👇 <b>Pick a platform</b>"
 )
 
 # Shown for /links and for any message the bot doesn't understand.
-LINKS_TEXT = "🔗 <b>All my links</b>\n\nTap a button to open a profile:"
+LINKS_TEXT = "🔗 <b>All the apps</b>\n\nPick one on the keyboard below 👇"
 
 
 # ---------------------------------------------------------------------------
