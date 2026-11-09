@@ -26,7 +26,8 @@ load_dotenv()
 async def run(url: str, token: str, secret: str) -> None:
     async with Bot(token) as bot:
         if url:
-            full_url = url.rstrip("/") + "/api/webhook"
+            # Vercel serves the WSGI app at the site root.
+            full_url = url.rstrip("/") + "/"
             await bot.set_webhook(
                 url=full_url,
                 secret_token=secret or None,

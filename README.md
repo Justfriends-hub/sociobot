@@ -98,7 +98,8 @@ they press `/start`.
 | `config.py`      | **Your links and message text** — edit this    |
 | `.env`           | Your secret bot token (never share)            |
 | `bot.py`         | The bot code — no need to touch it             |
-| `api/webhook.py` | Vercel entry point (used only on Vercel)       |
+| `api/index.py`   | Vercel entry point (used only on Vercel)       |
+| `pyproject.toml` | Vercel entrypoint + dependency list            |
 | `set_webhook.py` | Connects Telegram to Vercel — run once         |
 | `vercel.json`    | Vercel deployment settings                     |
 | `run.bat`        | Double-click to start the bot on your PC       |
@@ -129,8 +130,9 @@ as $5/month. But all of the above can genuinely run this bot for $0.
 ## Option 1 — Vercel (free)
 
 Vercel can't run a long-lived program, so on Vercel the bot uses **webhook
-mode**: Telegram pushes each message to a serverless function at
-`/api/webhook`. That code is already written (`api/webhook.py`).
+mode**: Telegram pushes each message to a serverless function. That code is
+already written (`api/index.py`), and `pyproject.toml` tells Vercel where to
+find it.
 
 > **Vercel Hobby is for personal projects only.** If this bot is for a
 > business or commercial brand, Vercel's terms require the Pro plan (~$20/mo).
@@ -155,10 +157,11 @@ Run this on your PC:
 .\.venv\Scripts\python.exe set_webhook.py https://sociobot.vercel.app
 ```
 
-It should print `Webhook connected: .../api/webhook`. Now message your bot.
+It should print `Webhook connected: https://sociobot.vercel.app/`. Now message
+your bot.
 
-**Check it's alive:** open `https://sociobot.vercel.app/api/webhook` in a
-browser — it should say *"Sociobot webhook is alive."*
+**Check it's alive:** open `https://sociobot.vercel.app/` in a browser — it
+should say *"Sociobot webhook is alive."*
 
 ### Good to know
 

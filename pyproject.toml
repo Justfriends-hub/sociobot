@@ -1,0 +1,12 @@
+[project]
+name = "sociobot"
+version = "0.1.0"
+description = "Telegram link-in-bio bot"
+requires-python = ">=3.12"
+dependencies = [
+    "python-telegram-bot>=22.0",
+    "python-dotenv>=1.0.1",
+]
+
+[tool.vercel]
+entrypoint = "api.index:app"
