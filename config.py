@@ -23,14 +23,13 @@ SOCIAL_LINKS = [
     ("📘", "Facebook",  "https://www.facebook.com"),
     ("🐦", "X / Twitter", "https://x.com"),
     ("▶️", "YouTube",   "https://www.youtube.com"),
-    ("💬", "WhatsApp",  "https://www.whatsapp.com"),
+    ("💬", "WhatsApp",  "https://web.whatsapp.com"),
     ("👻", "Snapchat",  "https://www.snapchat.com"),
     ("💼", "LinkedIn",  "https://www.linkedin.com"),
     ("🧵", "Threads",   "https://www.threads.net"),
     ("🎮", "Discord",   "https://discord.com"),
     ("📌", "Pinterest", "https://www.pinterest.com"),
     ("👽", "Reddit",    "https://www.reddit.com"),
-    ("✈️", "Telegram",  "https://telegram.org"),
 ]
 
 # How many buttons per row (2 looks best on phones).

@@ -17,6 +17,8 @@ Keyboard at the bottom of the chat:
 [ 🎵 TikTok ]      [ 📸 Instagram ]
 [ 📘 Facebook ]    [ 🐦 X / Twitter ]
 [ ▶️ YouTube ]     [ 💬 WhatsApp ]
+
+              [ 🏠 Home ]
 ```
 
 ---
@@ -78,15 +80,20 @@ Open your bot in Telegram and send `/start`. Tap a button.
 
 ## Good to know
 
-**It really opens inside Telegram.** On phones, Telegram opens links in its
-own in-app browser. Tapping **"Open in app"** (or the app icon) at the bottom
-then jumps straight into the TikTok/Instagram/etc. app.
+**It really opens inside Telegram.** Each button is a Mini App button, so the
+site opens over the chat with a Telegram header and a close button — not the
+external browser.
 
 **Telegram only allows `http://` and `https://` links** in buttons — custom
 app links like `instagram://` are blocked by Telegram, so always use `https://`.
 
-**WhatsApp:** use `https://wa.me/<countrycode><number>` with no `+` or spaces,
-e.g. `https://wa.me/2348012345678`.
+**WhatsApp uses WhatsApp Web** (`https://web.whatsapp.com`): it shows the QR
+code inside the Mini App. Scan it once from your phone (WhatsApp → Linked
+devices) and you can chat right there in Telegram. Use `https://wa.me/<number>`
+instead if you'd rather open a direct chat with one number.
+
+**🏠 Home** is a normal keyboard button (not a Mini App): tapping it sends
+"Home" and the bot replies with the welcome screen and keyboard again.
 
 **Editing links:** change `config.py`, then restart the bot (Ctrl+C in the
 black window, then `run.bat` again). Users get the new buttons the next time

@@ -59,6 +59,8 @@ def build_keyboard() -> ReplyKeyboardMarkup | None:
 
     per_row = max(1, config.BUTTONS_PER_ROW)
     rows = [buttons[i : i + per_row] for i in range(0, len(buttons), per_row)]
+    # Home button on its own row: brings the user back to the welcome screen.
+    rows.append([KeyboardButton(text="🏠 Home")])
     return ReplyKeyboardMarkup(
         rows,
         resize_keyboard=True,
@@ -107,6 +109,20 @@ async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await send_links(update, "Here are all the apps 👇 tap one on the keyboard.")
 
 
+async def home(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """The 🏠 Home keyboard button: show the welcome screen again."""
+    await start(update, context)
+
+
+def register_handlers(app: Application) -> None:
+    """Register every handler. Used by polling (bot.py) and webhook (api/)."""
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("links", links))
+    app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(MessageHandler(filters.Regex(r"(?i)^\s*(🏠\s*)?home\s*$"), home))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, unknown))
+
+
 async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
     logger.exception("Something went wrong while handling an update", exc_info=context.error)
 
@@ -135,10 +151,7 @@ def main() -> None:
 
     app = Application.builder().token(token).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("links", links))
-    app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, unknown))
+    register_handlers(app)
     app.add_error_handler(on_error)
 
     # Webhook mode is used by free hosts (Render, Koyeb, etc.) because they

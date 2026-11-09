@@ -18,7 +18,7 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 
 from telegram import Bot, Update
-from telegram.ext import Application, CommandHandler, MessageHandler, filters
+from telegram.ext import Application
 
 import bot as bot_module
 
@@ -34,10 +34,7 @@ async def _collect_error(update, context) -> None:
 def build_app() -> Application:
     """Same handlers as bot.py, without the polling loop."""
     app = Application.builder().token(os.environ["BOT_TOKEN"]).build()
-    app.add_handler(CommandHandler("start", bot_module.start))
-    app.add_handler(CommandHandler("links", bot_module.links))
-    app.add_handler(CommandHandler("help", bot_module.help_command))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, bot_module.unknown))
+    bot_module.register_handlers(app)
     app.add_error_handler(_collect_error)
     return app
 
